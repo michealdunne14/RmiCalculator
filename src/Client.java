@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.util.ArrayList;
 
 public class Client {
-    private int calculator = 0;
+    private float calculator = 0;
     private String operator = null;
     private String number = "";
     private ClientGUI clientGUI;
@@ -81,6 +81,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 1;
+                updateCalcuatorValues(number,field);
             }
         });
 
@@ -88,6 +89,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 0;
+                updateCalcuatorValues(number,field);
             }
         });
 
@@ -147,6 +149,7 @@ public class Client {
                     if (clientGUI.getmSubmit().getText().equals("Clear")) {
                         clientGUI.getmDisplay().setText("");
                         clientGUI.getmSubmit().setText("Submit");
+                        clientGUI.getmSubmit().setEnabled(false);
                         clientGUI.getmOne().setEnabled(true);
                         clientGUI.getmTwo().setEnabled(true);
                         clientGUI.getmThree().setEnabled(true);
@@ -163,6 +166,7 @@ public class Client {
                         operator = null;
                     }
                     else if (calcuatorValue.size() == 2) {
+                        clientGUI.getJta().append("Connected to Server \n");
                         obj = (Calculator) Naming.lookup("//"
                                 + "localhost"
                                 + "/Calculator");
@@ -178,7 +182,20 @@ public class Client {
                         }
                         System.out.println(calculator);
                         field.append("=" + calculator);
+                        clientGUI.getmOne().setEnabled(false);
+                        clientGUI.getmTwo().setEnabled(false);
+                        clientGUI.getmThree().setEnabled(false);
+                        clientGUI.getmFour().setEnabled(false);
+                        clientGUI.getmFive().setEnabled(false);
+                        clientGUI.getmSix().setEnabled(false);
+                        clientGUI.getmSeven().setEnabled(false);
+                        clientGUI.getmEight().setEnabled(false);
+                        clientGUI.getmNine().setEnabled(false);
+                        clientGUI.getmZero().setEnabled(false);
+                        clientGUI.getmNext().setEnabled(false);
                         clientGUI.getmSubmit().setText("Clear");
+                        clientGUI.getJta().append("Data Received from server \n");
+                        clientGUI.getJta().append("Got Result " + calculator + "\n");
                     }
                 } catch (Exception e) {
                     System.out.println("Exception: " + e.getMessage());
@@ -240,5 +257,6 @@ public class Client {
         clientGUI.getmEight().setEnabled(disablecheck);
         clientGUI.getmNine().setEnabled(disablecheck);
         clientGUI.getmZero().setEnabled(disablecheck);
+        clientGUI.getmSubmit().setEnabled(disablecheck);
     }
 }

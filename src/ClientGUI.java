@@ -47,6 +47,7 @@ public class ClientGUI {
         mPlus.setEnabled(false);
         mMinus.setEnabled(false);
         mStar.setEnabled(false);
+        mSubmit.setEnabled(false);
 
 //      Row 2
         mSeven.setBounds(100,100,100,100);
