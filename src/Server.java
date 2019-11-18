@@ -1,10 +1,15 @@
+/*
+* @author Micheal Dunne
+* @description Server that sends information to client
+* */
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Server extends UnicastRemoteObject implements Calculator {
-
+//	Server GUI
 	public ServerGUI serverGUI;
 
 	protected Server() throws RemoteException {
@@ -17,6 +22,7 @@ public class Server extends UnicastRemoteObject implements Calculator {
 	public static void main(String[] args)
 	{
 		try {
+//			Server Object
 			Server obj = new Server();
 			Registry registry = LocateRegistry.createRegistry(1099);
 			registry.rebind("Calculator",obj);
@@ -29,6 +35,7 @@ public class Server extends UnicastRemoteObject implements Calculator {
 	}
 
 
+//	Converts to float and adds two numbers together.
 	@Override
 	public float addNums(String num1, String num2) throws RemoteException {
 		float number1 = Float.parseFloat(num1);
@@ -43,6 +50,7 @@ public class Server extends UnicastRemoteObject implements Calculator {
 		return total;
 	}
 
+	//	Converts to float and minus two numbers together.
 	@Override
 	public float subtractNums(String num1, String num2) throws RemoteException {
 		float number1 = Integer.parseInt(num1);
@@ -57,6 +65,7 @@ public class Server extends UnicastRemoteObject implements Calculator {
 		return total;
 	}
 
+	//	Converts to float and multiply two numbers together.
 	@Override
 	public float multipleNums(String num1, String num2) throws RemoteException {
 		float number1 = Integer.parseInt(num1);
@@ -71,6 +80,7 @@ public class Server extends UnicastRemoteObject implements Calculator {
 		return total;
 	}
 
+	//	Converts to float and divides two numbers together.
 	@Override
 	public float divideNums(String num1, String num2) throws RemoteException {
 		float number1 = Integer.parseInt(num1);

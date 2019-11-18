@@ -1,3 +1,7 @@
+/*
+ * @author Micheal Dunne
+ * @description Client that sends and receives information from the server.
+ * */
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +13,10 @@ public class Client {
     private String operator = null;
     private String number = "";
     private ClientGUI clientGUI;
-    private ArrayList<String> calcuatorValue = new ArrayList<>();
+    private ArrayList<String> calculatorValue = new ArrayList<>();
 
 
-    static Calculator obj = null;
+    private static Calculator obj = null;
 
     public static void main(String args[])
     {
@@ -20,12 +24,15 @@ public class Client {
     }
 
     private Client(){
+//      Client GUI
         clientGUI = new ClientGUI();
         clickListeners();
     }
 
     private void clickListeners(){
+
         JTextArea field = clientGUI.getmDisplay();
+//      Divide operator
         clientGUI.getmSlash().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,7 +41,7 @@ public class Client {
                 resetValue(true);
             }
         });
-
+//      Multiply  operator
         clientGUI.getmStar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,7 +50,7 @@ public class Client {
                 resetValue(true);
             }
         });
-
+//      Minus operator
         clientGUI.getmMinus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +59,7 @@ public class Client {
                 resetValue(true);
             }
         });
-
+//      Plus operator
         clientGUI.getmPlus().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,11 +68,12 @@ public class Client {
                 resetValue(true);
             }
         });
+
         clientGUI.getmSeven().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 7;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -73,7 +81,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 4;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -81,7 +89,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 1;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -89,7 +97,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 0;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -97,7 +105,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 8;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -105,7 +113,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 5;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -113,7 +121,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 2;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -121,7 +129,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 9;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -129,7 +137,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 6;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
@@ -137,15 +145,16 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 number += 3;
-                updateCalcuatorValues(number,field);
+                updateCalcuatorValues(field);
             }
         });
 
-
+//      Submit button to send information to server
         clientGUI.getmSubmit().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
+//                  Resets Calculator
                     if (clientGUI.getmSubmit().getText().equals("Clear")) {
                         clientGUI.getmDisplay().setText("");
                         clientGUI.getmSubmit().setText("Submit");
@@ -161,24 +170,30 @@ public class Client {
                         clientGUI.getmNine().setEnabled(true);
                         clientGUI.getmZero().setEnabled(true);
                         clientGUI.getmNext().setEnabled(true);
-                        calcuatorValue.clear();
+                        calculatorValue.clear();
                         number = "";
                         operator = null;
                     }
-                    else if (calcuatorValue.size() == 2) {
+//                  Gets result from server
+                    else if (calculatorValue.size() == 2) {
                         clientGUI.getJta().append("Connected to Server \n");
                         obj = (Calculator) Naming.lookup("//"
                                 + "localhost"
                                 + "/Calculator");
+//                      operations
                         if (operator.equals("+")) {
-                            calculator = obj.addNums(calcuatorValue.get(0), calcuatorValue.get(1));
+//                          Get result from server
+                            calculator = obj.addNums(calculatorValue.get(0), calculatorValue.get(1));
                         } else if (operator.equals("-")) {
-                            calculator = obj.subtractNums(calcuatorValue.get(0), calcuatorValue.get(1));
+//                          Get result from server
+                            calculator = obj.subtractNums(calculatorValue.get(0), calculatorValue.get(1));
                         }
                         else if (operator.equals("/")) {
-                            calculator = obj.divideNums(calcuatorValue.get(0), calcuatorValue.get(1));
+//                          Get result from server
+                            calculator = obj.divideNums(calculatorValue.get(0), calculatorValue.get(1));
                         } else if (operator.equals("*")) {
-                            calculator = obj.multipleNums(calcuatorValue.get(0), calcuatorValue.get(1));
+//                          Get result from server
+                            calculator = obj.multipleNums(calculatorValue.get(0), calculatorValue.get(1));
                         }
                         System.out.println(calculator);
                         field.append("=" + calculator);
@@ -203,7 +218,7 @@ public class Client {
                 }
             }
         });
-
+//      Go to the next stage of setting the operation.
         clientGUI.getmNext().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,29 +229,29 @@ public class Client {
         });
     }
 
-
-    public void updateCalcuatorValues(String number, JTextArea field){
-        if (calcuatorValue.isEmpty()) {
-            calcuatorValue.add(this.number);
-            field.setText(calcuatorValue.get(0));
+//  Update values
+    public void updateCalcuatorValues(JTextArea field){
+        if (calculatorValue.isEmpty()) {
+            calculatorValue.add(this.number);
+            field.setText(calculatorValue.get(0));
         }else if (operator == null){
-            calcuatorValue.remove(0);
-            calcuatorValue.add(this.number);
-            field.setText(calcuatorValue.get(0));
+            calculatorValue.remove(0);
+            calculatorValue.add(this.number);
+            field.setText(calculatorValue.get(0));
         } else {
-            if (calcuatorValue.size() != 2){
-                calcuatorValue.add(this.number);
+            if (calculatorValue.size() != 2){
+                calculatorValue.add(this.number);
             }else {
-                calcuatorValue.remove(1);
-                calcuatorValue.add(this.number);
+                calculatorValue.remove(1);
+                calculatorValue.add(this.number);
             }
-            field.setText(calcuatorValue.get(0) + operator + calcuatorValue.get(1));
+            field.setText(calculatorValue.get(0) + operator + calculatorValue.get(1));
         }
     }
 
 
     public void resetValue(boolean disablecheck){
-        if (calcuatorValue.size() == 2){
+        if (calculatorValue.size() == 2){
             clientGUI.getmPlus().setEnabled(disablecheck);
             clientGUI.getmMinus().setEnabled(disablecheck);
             clientGUI.getmStar().setEnabled(disablecheck);

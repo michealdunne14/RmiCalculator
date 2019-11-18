@@ -1,5 +1,8 @@
+/*
+ * @author Micheal Dunne
+ * @description Displays the server front-end
+ * */
 import javax.swing.*;
-import java.awt.*;
 
 public class ServerGUI {
     private JTextArea mDisplay = new JTextArea();
@@ -10,10 +13,11 @@ public class ServerGUI {
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//      Row 1
+//      Sets up JTextArea
         mDisplay.setBounds(0,0,500,500);
         frame.add(mDisplay);
 
+//      Sets up the frame layout
         frame.setLayout(null);
         frame.setVisible(true);
     }

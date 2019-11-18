@@ -1,3 +1,7 @@
+/*
+ * @author Micheal Dunne
+ * @description Displays the Client front-end
+ * */
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,14 +10,13 @@ public class ClientGUI {
     private JFrame frame = new JFrame("Client");
     private JTextArea jta = new JTextArea();
 
-
-
     private JButton mSlash,mStar,mMinus,mPlus,mOne,mTwo,mThree,mFour,mFive,mSix,mSeven,mEight,mNine,mZero,mSubmit,mNext;
 
     public ClientGUI() {
 //       Sets the Frame
         frame.setSize(415, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//      Initializes each button
         mSlash = new JButton("/");
         mStar = new JButton("*");
         mMinus = new JButton("-");
