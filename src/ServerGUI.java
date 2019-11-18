@@ -3,10 +3,10 @@ import java.awt.*;
 
 public class ServerGUI {
     private JTextArea mDisplay = new JTextArea();
-    private JFrame frame = new JFrame("Server");
 
     public ServerGUI() {
 //       Sets the Frame
+        JFrame frame = new JFrame("Server");
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -20,9 +20,5 @@ public class ServerGUI {
 
     public JTextArea getmDisplay() {
         return mDisplay;
-    }
-
-    public JFrame getFrame() {
-        return frame;
     }
 }
